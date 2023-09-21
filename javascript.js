@@ -421,7 +421,12 @@ function getLocales( IdClienteProv )
     <tbody></tbody>
 </table>
 */
+
+/*ejemplo proyecto-comercial/public/librerias/giro/giro.js linea 11(arriba en las variables)
+va asociado con la linea 104 (TablaHomePs) asociado a los botones copy,excel,csv,pdf,print*/
 var TablaHomePs;
+
+
 TablaHomePs = $('#TablaHomePs').DataTable({
     pagingType : "full_numbers",
     lengthMenu : [
