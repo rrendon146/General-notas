@@ -1,1 +1,13 @@
+añadir variable en el nestj:
 
+en caso de que salga error en la consola web de Uncaught typerror cannot read property "variable no declarada u otras razones"
+
+
+const newArea = await this.areaModel.create( createAreadto );
+return this.areaModel.save( newArea );
+let data = await this.areaModel.save( newArea );
+return {
+  data : data,
+  version : '1'
+ };
+}
