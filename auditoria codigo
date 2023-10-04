@@ -1,0 +1,36 @@
+CASE 200:
+....
+....
+getAll();
+//luego de get all va el codigo de auditoria
+
+                        let data = json.data
+                        // ******* NODE JS *******
+                        socket.emit('accion:audit',{
+                        user  : $nomU, //variable fija
+                        msg   : 'Anular Puesto Iso . #'+ data.idPuestoIso, (se cambia anular puesto iso segun el codigo y idpuestoiso segun la ID del codigo)
+                        dni   : $dniU, //variable fija
+                        serie : 0, //variable fija
+                        corr  : $('#frmDocumento #idPuestoIso').val(), (se cambia segun el codigo del id)
+                        form  : _AuthFormulario, //variable fija segun el formulario
+                        url   : window.location.href, //variable fija
+                        token : data.uu_id,
+                    });
+
+//AUDITORIA CUANDO EL BOTON ESTA AFUERA 
+
+                        let data = json.data
+                        // ******* NODE JS *******
+                        socket.emit('accion:audit',{
+                        user  : $nomU, //variable fija
+                        msg   : 'Anular Puesto Iso . #'+$('#frmDocumento #idPuestoIso').val(), //agregar el jquery del idpuesto iso
+                        dni   : $dniU, //variable fija
+                        serie : 0, //variable fija
+                        corr  : $('#frmDocumento #idPuestoIso').val(), //
+                        form  : _AuthFormulario, //variable segun formulario
+                        url   : window.location.href, //variable fija
+                        token : $('#frmDocumento #uu_id').val(), //se debe poner el jquery (el $('frm...')
+                    });
+
+
+//AUDITORIA CUANDO EL BOTON ESTA DENTRO DEL FORMULARIO (EJEMP ANULAR DENTRO DEL BOTON NUEVO)
