@@ -1,0 +1,66 @@
+variable dentro de document ready
+
+let IdArea = $('#frmDocumento #IdArea').select2({
+                width : '100%'
+            });
+
+//buscador combo de area, permite digitar una palabra y empiece a buscar dentro de area
+
+function areas()
+{
+    // areas
+    $.ajax({
+        url     : `${_URL_NESTMy}v1/area/`, //debe apuntar v1/area para el buscador de areas //_URL_NESTMy es la URL del postman se debe digitar
+        method  : "GET",
+        dataType: "json",
+        headers : {
+				Authorization : `Bearer ${_session3001}` // en caso que salga unatorized se debe digitar este link que es el TOKEN del NEST para acceder a la BBDD
+			}
+    })
+    .done(function(  json ,textStatus, xhr ) {
+        switch ( xhr.status )
+        {
+            case 'ERROR':
+                alert(json.error);
+            break;
+            case 200:
+                // negocio...
+                if( json.data != undefined ){
+                    var html = `<option value="" >Seleccione</option>`;
+                    $.each( json.data , function( key, rs ) {
+                        html += `<option value="${rs.CodArea}" >${rs.Descripcion}</option>`; //en option value se debe digitar CodArea que busca los AREAS id
+                    });
+                    $('#frmDocumento #IdArea').html(html);
+                    $('#frmDocumento #IdArea').trigger('change');
+                }
+            break;
+        }
+    })
+    .fail(function(xhr, status, error) {
+        if( xhr.status == 422 )
+        {
+            // 422 es decir un error de validacion de datos...
+            var $errores = xhr.responseJSON, $texto = '', $arError = [];
+            $.each( $errores.errores , function( key, value ) {
+                $arError.push( value.msg );
+            });
+            $texto = $arError.join(', ');
+            Swal.fire({
+                icon: 'error',
+                title: 'Revise lo siguiente...',
+                text: `${$texto}`
+            });
+        }else{
+            alert('Error al ejecutar');
+        }
+        //$('#wrapperTable').waitMe('hide');
+    })
+    .always(function() {
+        //$('#wrapperTable').waitMe('hide');
+    });
+}
+
+//esta es funcion area (buscador de areas) y luego digitar area(); dentro de ORQ para que se ejecute
+// $('#frmDocumento #IdArea').html(html);
+// $('#frmDocumento #IdArea').trigger('change');
+// estos 2 codigos se debe insertar dentro de la funcion area para que permita buscar las areas
