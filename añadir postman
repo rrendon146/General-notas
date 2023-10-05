@@ -1,1 +1,11 @@
+crear una nueva carpeta ejemp "acceso-modulo" dentro de POSTMAN
+luego archivo "listar" modo GET
+poner direccion ejem http://localhost:3001/v1/acceso-modulo/ (acceo-modulo)
+SEND
+luego entrar parte iz entrar ala carpeta local/AUTH/ y click en login y copiar el token del archivo LOGIN sin comilla
+
+luego volver a listar modo get en el acceso donde queremos acceder 
+parte de abajo seleccionar "authorization" y click en type modo "bearer" y reemplazar el TOKEN por el copiado en login
+luego en "headers" al costado de authorization poner en key Content-type y value application/json y luego send para poder acceder
+
 
