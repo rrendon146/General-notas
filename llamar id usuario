@@ -1,0 +1,51 @@
+// usuarios,productos,centro de costos,giros,clientes son jquery no funciones
+// url: _URL_NODE3+'/api/src/usuarios_select2/',
+// select2_productos
+// cc_select2
+// giros_select2
+// clientes2_select2
+
+let _IdAutorizado = $('#frmDocumento #IdAutorizado').select2({
+    ajax: {
+        url : `${_URL_NODE3}/api/src/usuarios_select2/` ,
+        dataType : 'json',
+        data : function (params) {
+            var query = {
+                q : params.term,
+                "user_token" : _token_node
+            }
+            return query;
+        }
+    },
+    processResults: function (data) {
+        return {
+        results: data
+        };
+    },
+    minimumInputLength : 3,width : '100%'
+});
+
+
+
+//ejemplo para llamar usuarios con nombre apellido y dni
+
+let id_usuario = $('#frmDocumento #id_usuario').select2({ // poner el id que se busca
+                ajax: {
+                    url : `${_URL_NODE3}api/src/usuarios_select2/` , //en la url cambiar ejem /src/usuarios_select2 o select2_productos,etc
+                    dataType : 'json',
+                    data : function (params) {
+                        var query = {
+                            q : params.term,
+                            "user_token" : _token_node
+                        }
+                        return query;
+                    }
+                },
+                processResults: function (data) {
+                    return {
+                    results: data
+                    };
+                },
+                minimumInputLength : 3,width : '100%'
+            });
+
