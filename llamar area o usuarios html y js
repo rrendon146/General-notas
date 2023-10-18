@@ -1,0 +1,53 @@
+en html (frmXXXX.php):
+digitar los segun en el postman
+y para colocar el usuario y area cuando este se le llame se debe colocarlo en input type=hidden para ocultarlo para llamarlo en la columna
+de datatable (recordar que se debe poner el primary key como oculto)
+
+en js busqueda usuario o area:
+para que haga la busqueda en usuario se empieza con la variable let y debajo  el select2 sino saldra error
+
+//la variable "IdUsuario" varia segun el postman aparezca su variable y en select2 cambiar variable segun el postman en este caso IdUsuario
+//console log es para que en el console aparezca el usuario y conocer si existe algun error
+
+let IdUsuario = $('#frmDocumento #IdUsuario').select2({
+                ajax: {
+                    url : `${_URL_NODE3}api/src/usuarios_select2/` ,
+                    dataType : 'json',
+                    data : function (params) {
+                        var query = {
+                            q : params.term,
+                            "user_token" : _token_node
+                        }
+                        return query;
+                    }
+                },
+                processResults: function (data) {
+                    return {
+                    results: data
+                    };
+                },
+                minimumInputLength : 3,width : '100%'
+            });
+
+            /* ------------------------------------------------------------- */
+            IdUsuario.on("select2:select", function (e) { 
+                var Texto = e.params.data.text, IdClienteProv = e.params.data.id;
+                $('#frmDocumento #Usuario').val(Texto);
+                console.log(Texto);
+
+            });
+
+//la variable "IdArea" varia segun el postman aparezca su variable y en select2 cambiar variable segun el postman en este caso IdArea
+//console log es para que en el console aparezca el usuario y conocer si existe algun error
+
+let IdArea = $('#frmDocumento #IdArea').select2({
+                width : '100%'
+            });
+			/* ------------------------------------------------------------- */
+			/* ------------------------------------------------------------- */
+            IdArea.on("select2:select", function (e) { 
+                var Texto = e.params.data.text, IdClienteProv = e.params.data.id;
+                $('#frmDocumento #Area').val(Texto);
+                console.log(Texto);
+
+            });
