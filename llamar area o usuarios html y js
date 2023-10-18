@@ -6,7 +6,8 @@ de datatable (recordar que se debe poner el primary key como oculto)
 en js busqueda usuario o area: (este cod se encuentra en proyecto contabilidad - area-usuarios)
 para que haga la busqueda en usuario se empieza con la variable let y debajo  el select2 sino saldra error
 
-//la variable "IdUsuario" varia segun el postman aparezca su variable y en select2 cambiar variable segun el postman en este caso IdUsuario
+//la variable "IdUsuario" varia segun el postman aparezca su variable
+//en select2 cambiar variable segun el postman en este caso IdUsuario y frmDOcumento donde dice "Usuario" se refiere a que va al campo Usuario ((oculto en frmXXX)
 //console log es para que en el console aparezca el usuario y conocer si existe algun error
 
 let IdUsuario = $('#frmDocumento #IdUsuario').select2({
@@ -30,14 +31,15 @@ let IdUsuario = $('#frmDocumento #IdUsuario').select2({
             });
 
             /* ------------------------------------------------------------- */
-            IdUsuario.on("select2:select", function (e) { 
+            IdUsuario.on("select2:select", function (e) { 				    //IdUsuario la variable del postman
                 var Texto = e.params.data.text, IdClienteProv = e.params.data.id;
-                $('#frmDocumento #Usuario').val(Texto);
+                $('#frmDocumento #Usuario').val(Texto);					    //Usuario para que vaya al campo Usuario(este tb en postman) que esta oculto en frmXXX como input
                 console.log(Texto);
 
             });
 
-//la variable "IdArea" varia segun el postman aparezca su variable y en select2 cambiar variable segun el postman en este caso IdArea
+//la variable "IdArea" varia segun el postman aparezca su variable
+//en select2 cambiar variable segun el postman en este caso IdArea y frmDOcumento donde dice "Area" se refiere a que va al campo Area (oculto en frmXXX) 
 //console log es para que en el console aparezca el usuario y conocer si existe algun error
 
 let IdArea = $('#frmDocumento #IdArea').select2({
@@ -45,9 +47,9 @@ let IdArea = $('#frmDocumento #IdArea').select2({
             });
 			/* ------------------------------------------------------------- */
 			/* ------------------------------------------------------------- */
-            IdArea.on("select2:select", function (e) { 
+            IdArea.on("select2:select", function (e) {                                      //IdArea la variable del postman
                 var Texto = e.params.data.text, IdClienteProv = e.params.data.id;
-                $('#frmDocumento #Area').val(Texto);
+                $('#frmDocumento #Area').val(Texto);                                        //Area para que vaya al campo Area(este tb en postman) que esta oculto en frmXXX como input
                 console.log(Texto);
 
             });
