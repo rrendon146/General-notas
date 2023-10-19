@@ -745,4 +745,21 @@ en js:
 en function crearnuevo
 				agregar     $('#frmDocumento #Codigo').val(0);
 				para que el ID se refleje con 0 (Codigo es el ID del frmXXX que esta como readonly)
+--------------------------------------------------------------------
+en html frmXXX agregar un boton que indique "agregarnuevo" con el ID btnAgregar
 				
+en js para añadir boton "agregar nuevo" sin que salga:
+
+en jquery agregar
+				$("#btnAgregar").on( "click", function(e) {
+		                e.preventDefault();
+		                crearNuevo(
+		
+		              	  );
+		                
+		           	});
+añadir en funcion crearNUevo
+debajo de let uuid
+				    $('#frmDocumento #IdUsuario').html(``);
+    				    $('#frmDocumento #IdUsuario').trigger('change');
+
