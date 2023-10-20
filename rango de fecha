@@ -53,3 +53,51 @@ poner las variables:
 var _arrayDiasSemana = ['Do','Lu','Ma','Mi','Ju','Vi','Sa'], _FechaInic_DRP = '', _FechaFin_DRP = '';
 /* ------------------------------------------------------------- */
 var _arrayMeses = ["ENERO", "FEBRERO", "MARZO", "ABRIL", "MAYO", "JUNIO", "JULIO", "AGOSTO", "SEPTIEMBRE", "OCTUBRE", "NOVIEMBRE", "DICIEMBRE"];
+
+en la parte inferior antes del jquery escribir el codigo a continuacion dentro del .js
+
+        $('input[name="datefilter"]').daterangepicker({
+                autoUpdateInput: false,
+                ranges: {
+                    'Hoy': [moment(), moment()],
+                    'Ayer': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+                    'Hace 7 dias': [moment().subtract(6, 'days'), moment()],
+                    'Hace 30 dias': [moment().subtract(29, 'days'), moment()],
+                    'Este mes': [moment().startOf('month'), moment().endOf('month')],
+                    'Mes anterior': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+                },
+                "locale": {
+                    "format": "DD/MM/YYYY",
+                    "separator": " - ",
+                    "applyLabel": "Aplicar",
+                    "cancelLabel": "Cancela",
+                    "fromLabel": "desde",
+                    "toLabel": "hasta",
+                    "customRangeLabel": "Definir",
+                    "weekLabel": "W",
+                    "daysOfWeek": [
+                        "Do", "Lu", "Ma", "Mi", "Ju", "Vi", "Sa"
+                    ],
+                    "monthNames": [
+                        "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"
+                    ],
+                    "firstDay": 1
+                },
+            }, function(start, end, label) {
+                var _Token = $('#frmDocumento #uu_id').val();
+                //
+                _FechaInic_DRP = start.format('YYYY-MM-DD');
+                _FechaFin_DRP  = end.format('YYYY-MM-DD');
+            });
+            /* ------------------------------------------------------------- */
+            $('input[name="datefilter"]').on('apply.daterangepicker', function(ev, picker) {
+                $(this).val(picker.startDate.format('DD/MM/YYYY') + ' - ' + picker.endDate.format('DD/MM/YYYY'));
+
+                _FechaInic_DRP = picker.startDate.format('YYYY-MM-DD');
+                _FechaFin_DRP  = picker.endDate.format('YYYY-MM-DD');
+            });
+            /* ------------------------------------------------------------- */
+            $('input[name="datefilter"]').on('cancel.daterangepicker', function(ev, picker) {
+                $(this).val('');
+            });
+            /* ------------------------------------------------------------- */
