@@ -1,1 +1,55 @@
+este ejemplo lo encuentras en proyecto contratos modal usuarios_app:
+crear el modal o el div para la tabulacion del rango de fechas "html"
+se creo un cuadro que en titulo indique algo y un boton de close y como boton modal
 
+              <div class=" col-lg-1 col-md-1 " >
+                    <!-- <a href="#" class="btn btn-app pull-right" >
+                        <i class="fa fa-search"></i> Filtro
+                    </a> -->
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo">Filtro</button>
+
+                    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" id="exampleModalLabel">Busqueda por filtro</h4>
+                        </div>
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label for="rngFechas" >Rango de fechas</label> 
+                                <input type="text" id="datefilter" name="datefilter" class=" form-control input-lg " value="" maxlength="150" />
+                             </div>
+                            <!-- ./form-group -->
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+
+dentro del homeXXX.php agregar dentro de los CSS el link ejemploo
+<?= $this->section('los_css') ?>
+<link rel="stylesheet" href="<?= esc($APP_URL) ?>plugins/daterangepicker-master/daterangepicker.css">
+
+<?= $this->endSection() ?>
+
+luego agregar dentro del homeXXX.php abajo el script js parte inferior debajo de los varios links scripts:
+
+<script src="<?= esc($APP_URL) ?>plugins/daterangepicker-master/daterangepicker.js"></script>
+
+dentro del modal homeXXX.php agregar en modal-body
+
+                            <div class="form-group">
+                                <label for="rngFechas" >Rango de fechas</label> 
+                                <input type="text" id="datefilter" name="datefilter" class=" form-control input-lg " value="" maxlength="150" />
+                             </div>
+
+ir a homeXXX.js de javascript del proyecto
+
+poner las variables:
+var _arrayDiasSemana = ['Do','Lu','Ma','Mi','Ju','Vi','Sa'], _FechaInic_DRP = '', _FechaFin_DRP = '';
+/* ------------------------------------------------------------- */
+var _arrayMeses = ["ENERO", "FEBRERO", "MARZO", "ABRIL", "MAYO", "JUNIO", "JULIO", "AGOSTO", "SEPTIEMBRE", "OCTUBRE", "NOVIEMBRE", "DICIEMBRE"];
