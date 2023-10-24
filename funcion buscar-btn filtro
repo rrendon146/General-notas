@@ -172,5 +172,23 @@ function buscarDoc()
 	//
 }
 
+poner limpiar modal para que limpie en la busqueda
+
+dentro del function jquery
+
+			$('#btnFiltro').click(function (e) { 
+				e.preventDefault();
+                		limpiar_modal();
+				$("#mdlFiltro").modal("show");
+			});
+
+digitar la funcion limpiar modal y se pone el ID de los cuadros de busqueda en este caso placa y etiqueta 
+
+function limpiar_modal()
+{
+  $('#txtPlaca').val("");
+  $('#txtEtiqueta').val(""); 
+}
+
 
 
