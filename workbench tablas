@@ -1,0 +1,48 @@
+SELECT * FROM orq_boleta_salida //seleccionar tabla
+ORDER BY id DESC LIMIT 100;
+
+
+
+
+
+truncate table orq_boleta_salida; //borrar
+
+DROP TABLE if exists ssays01.orq_boleta_salida; //para borrar
+
+//creacion de tabla campos necesarios de crear id,uu_id,codigo,deleted,created,updated,primary key
+CREATE TABLE `orq_boleta_salida` (
+`id` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+`uu_id` VARCHAR(150) DEFAULT NULL,
+`Codigo` VARCHAR(150) DEFAULT NULL,
+`TipoBoleta` VARCHAR(150) DEFAULT NULL,
+`IdSolicitante` BIGINT(11) DEFAULT NULL,
+`Solicitante` VARCHAR(150) DEFAULT NULL,
+`IdAutoriza` BIGINT(11) DEFAULT NULL,
+`Autoriza` VARCHAR(150) DEFAULT NULL,
+`FechaSol` DATE DEFAULT NULL,
+`Motivo` VARCHAR(150) DEFAULT NULL,
+`TipoComision` VARCHAR(150) DEFAULT NULL,
+`IdCliente` BIGINT(11) DEFAULT NULL,
+`Cliente` VARCHAR(150) DEFAULT NULL,
+`IdSucursal` BIGINT(11) DEFAULT NULL,
+`Sucursal` VARCHAR(150) DEFAULT NULL,
+`Direccion` TEXT DEFAULT NULL,
+`Contacto` VARCHAR(150) DEFAULT NULL,
+`TipoPermiso` VARCHAR(150) DEFAULT NULL,
+`FechaSalida` DATE DEFAULT NULL,
+`HoraSalida` TIME DEFAULT NULL,
+`HoraRegreso` TIME DEFAULT NULL,
+`HoraIngreso` TIME DEFAULT NULL,
+`Observaciones` TEXT DEFAULT NULL,
+`Estado` VARCHAR(150) DEFAULT 'Digitado',
+`VBVigilancia` VARCHAR(150) DEFAULT 'Pendiente',
+`FechaVB` DATETIME DEFAULT NULL,
+`IdVigilante` BIGINT(11) DEFAULT NULL,
+`Vigilante` VARCHAR(150) DEFAULT NULL,
+`deleted_at` TIMESTAMP NULL DEFAULT NULL,
+`created_at` TIMESTAMP NULL DEFAULT NULL,
+`updated_at` TIMESTAMP NULL DEFAULT NULL,
+PRIMARY KEY (`id`)
+) ENGINE=INNODB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=UTF8MB4_UNICODE_CI;
+/**/
+
