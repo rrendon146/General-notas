@@ -9,6 +9,10 @@ ALTER TABLE XXXX //alterar la tabla y luego
 DROP COLUMN XXXX; //borrar columna 
 ADD COLUMN XXXX VARCHAR(150); // o añadir columna
 
+ADD COLUMN XXXX VARCHAR(150), // AÑADIR varias columnas
+ADD COLUMN YYYY VARCHAR(150), //
+ADD COLUMN ZZZZ VARCHAR(150); //
+
 
 truncate table orq_boleta_salida; //borrar
 
