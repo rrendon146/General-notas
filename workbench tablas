@@ -7,7 +7,7 @@ RENAME TABLE XXXX TO XXXXX // renombrar tabla
 
 ALTER TABLE XXXX //alterar la tabla y luego
 DROP COLUMN XXXX; //borrar columna 
-ADD COLUMN XXXX; // o añadir columna
+ADD COLUMN XXXX VARCHAR(150); // o añadir columna
 
 
 truncate table orq_boleta_salida; //borrar
