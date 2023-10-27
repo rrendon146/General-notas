@@ -1,5 +1,7 @@
 crear mdlXXX.php
 recordar "mdlFIltro" ira en .js
+recordar añadir en homeXXX.php el:
+<?= $this->include('solicitud_equipos/mdlSolicitudEquipos') ?> "ejemplo"este
 
 
   <!-- Modal -->
