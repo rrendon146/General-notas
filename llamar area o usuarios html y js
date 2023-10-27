@@ -55,3 +55,31 @@ let IdArea = $('#frmDocumento #IdArea').select2({
                 console.log(Texto);
 
             });
+
+//llamar para la persona que autoriza mismo procedimiento segun el postman indique
+
+let IdAutoriza = $('#frmDocumento #IdAutoriza').select2({
+                ajax: {
+                    url: _URL_NODE3+'api/src/usuarios_select2/',
+                    dataType: 'json',
+                    data: function (params) {
+                        var query = {
+                            q : params.term,
+                            "user_token" : _token_node
+                        }
+                        // Query parameters will be ?search=[term]&type=public
+                        return query;
+                    }
+                },
+                processResults: function (data) {
+                    return {
+                    results: data
+                    };
+                },
+                minimumInputLength : 3,width : '100%'
+            });
+            /* ------------------------------------------------------------- */
+            IdAutoriza.on("select2:select", function (e) { 
+                var text = e.params.data.text;
+                $('#frmDocumento #Autoriza').val(text);
+            });
