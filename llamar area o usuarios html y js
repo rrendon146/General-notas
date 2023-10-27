@@ -9,6 +9,8 @@ para que haga la busqueda en usuario se empieza con la variable let y debajo  el
 //la variable "IdUsuario" varia segun el postman aparezca su variable
 //en select2 cambiar variable segun el postman en este caso IdUsuario y frmDOcumento donde dice "Usuario" se refiere a que va al campo Usuario ((oculto en frmXXX)
 //console log es para que en el console aparezca el usuario y conocer si existe algun error
+// NOTA: si no funciona el select2 para la bsuqueda quizas sea jalar un script en el homeXXX.php 
+
 
 let IdUsuario = $('#frmDocumento #IdUsuario').select2({
                 ajax: {
