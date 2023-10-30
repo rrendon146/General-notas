@@ -40,6 +40,16 @@ let IdUsuario = $('#frmDocumento #IdUsuario').select2({
 
             });
 
+
+---------------------------------------------------------------- o usar este codigo al momento de crear estos valores envien a la tabla(ESTE PROYECTO ES acceso-modulo/proyecto admin
+	    id_usuario.on("select2:select", function (e) { 
+                var _Id = e.params.data.id, _Texto = e.params.data.text;
+                console.log( e.params.data.email);
+                $('#frmDocumento #email').val(e.params.data.email);         //para que el id usuario envie a la columna correo del datatable,email (postman) y email(segun el json en console-network-results)
+                $('#frmDocumento #usuario').val(e.params.data.name);        //para que el id usuario envie a la columna usuario del datatable, usuario(postman) y name(segun el json del console-network-results)
+
+            });
+
 //la variable "IdArea" varia segun el postman aparezca su variable
 //en select2 cambiar variable segun el postman en este caso IdArea y frmDOcumento donde dice "Area" se refiere a que va al campo Area (oculto en frmXXX) 
 //console log es para que en el console aparezca el usuario y conocer si existe algun error
