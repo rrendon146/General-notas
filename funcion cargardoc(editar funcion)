@@ -1,0 +1,30 @@
+EN EL BOTON EDITAR EN CASO REFLEJE TODO VACIO
+esto se hizo en el proyecto admin - accesomodulo
+
+ir a la funcion crearDoc o cargardocumento en .js
+en la parte case 200:
+
+          case 200:
+                    $.each( json.data , function( key , value ){
+                        $('#frmDocumento #'+key).val(value);
+
+                    });          
+                  
+                    $('#frmDocumento #id').val(json.data.id); //se puso este codigo para que se refleje el id (codigo en cargardoc)
+                     $('#frmDocumento #id').trigger('change'); // al igual que este codigo de id para que se refleje
+                    
+                     $('#frmDocumento #usuario').html(`<option value="${json.data.usuario}" >${json.data.usuario}</option>`); //se puso este codigo para que refleje el usuario
+                     $('#frmDocumento #usuario').trigger('change'); //al igual que este refleje usuario
+
+
+              luego ir a la funcion crear nuevo y digitar el siguiente codigo para cuando se de "editar" y luego poner "nuevo" se limpie y no refleje
+
+                  $('#frmDocumento #id').val(''); //para que limpie el ID
+                  $('#frmDocumento #id').trigger('change');
+              
+                  $('#frmDocumento #usuario').val(''); // para que limpie usuario
+                  $('#frmDocumento #usuario').trigger('change');
+              
+                  $('#frmDocumento #modulo').val(''); // para que limpie modulo
+                  $('#frmDocumento #modulo').trigger('change');
+
