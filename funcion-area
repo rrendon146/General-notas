@@ -30,7 +30,6 @@ function areas()
                     $.each( json.data , function( key, rs ) {
                         html += `<option value="${rs.CodArea}" >${rs.Descripcion}</option>`; //en option value se debe digitar CodArea que busca los AREAS id
                     });
-                    $('#frmDocumento #IdArea').html(html);
                     $('#frmDocumento #IdArea').trigger('change');
                 }
             break;
