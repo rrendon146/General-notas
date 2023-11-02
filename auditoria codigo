@@ -1,6 +1,7 @@
 CASE 200:
 ....
 ....
+function initorq:
 getAll();
 //luego de get all va el codigo de auditoria
 
@@ -18,6 +19,7 @@ getAll();
                     });
 
 //AUDITORIA CUANDO EL BOTON ESTA AFUERA 
+esto esta en function cargardoc (la funcion que se al guardar el id o documento)
 
                         let data = json.data
                         // ******* NODE JS *******
