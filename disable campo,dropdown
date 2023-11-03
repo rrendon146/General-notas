@@ -1,0 +1,20 @@
+se ubica en proyecto intranet/modulo solicitudequipos .js
+
+        $('#frmDetalle #TipoEquipo').change(function(e){ //selecciona el frmDetalle que es el modal
+
+                let valor = $(this).val(); //asignar un valor en este caso se digito "valor"
+                $('#frmDetalle #PlanTelefono').attr('disabled', 'disabled'); //attr atributo disabled para el id PlanTelefono
+                $('#frmDetalle #Operador').attr('disabled', 'disabled');//attr atributo disabled para el id Operador
+
+                switch (valor) { //poner el valor "valor"
+                    case 'Celular': //la opcion celular se escoge al momento de escoger celular se desbloquee el id plantelefono y plan operador
+                        $('#frmDetalle #PlanTelefono').removeAttr('disabled');
+                        $('#frmDetalle #Operador').removeAttr('disabled');
+
+                        break;
+                
+                    default:
+                        break;
+                }
+
+            })
