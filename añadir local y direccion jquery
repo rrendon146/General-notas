@@ -1,0 +1,59 @@
+            $eventCliente.on("select2:select", function (e) { 
+                var $idCliente = e.params.data.id;
+                $('#frmDocumento #Cliente').val( e.params.data.text ); //cliente segun el postman declarado
+                // Buscar locales...
+                $('#frmDocumento').waitMe({
+                  effect: 'facebook',
+                  text: 'Cargando...',
+                  bg: 'rgba(255,255,255,0.7)',
+                  color:'#146436'
+                });
+                $.ajax({
+                  url     : _URL_API2 + 'get/locales/cliente/orq3',
+                  method  : "POST",
+                  data    : { 'idCliente' : $idCliente },
+                  dataType: "json",
+                  headers : {
+                      "api-token" : _TokenUser
+                  }
+                })
+                .done(function(  json ) {
+                  $arrLocales = [];
+                  if( json.data != undefined ){
+                    var _html = '<option value="" >Seleccione</option>';
+                    $arrLocales = json.data;
+                    $.each( json.data , function( key, value ) {
+                      _html += '<option value="'+value.IdSucursal+'" >'+value.IdSucursal+' - '+value.Descripcion+'</option>'; 
+                    });
+                    $('#frmDocumento #IdSucursal').html( _html );
+                    $('#frmDocumento #IdSucursal').trigger('change');
+                  }
+                })
+                .fail(function() {
+                  FalloJS();
+                })
+                .always(function() {
+                  $('#frmDocumento').waitMe('hide');
+                });
+              });
+              /* ------------------------------------------------------------- */
+              var $eventLocal = $('#frmDocumento #IdSucursal').select2({
+                width:'100%'
+              });
+              /* ------------------------------------------------------------- */
+              $eventLocal.on("select2:select", function (e) { 
+                var $idLocal = e.params.data.id;
+                $('#frmDocumento #Sucursal').val( e.params.data.text ); //segun el postman Sucursal
+                //
+                if( $arrLocales != undefined ){
+                  var _html = '';
+                  $.each( $arrLocales , function( key, value ) {
+                    //var $idLocal = parseInt( $idLocal );
+                    //console.log( $idLocal , value.IdSucursal);
+                    if( $idLocal == value.IdSucursal ){
+                      $('#frmDocumento #Direccion').val( value.Direccion ); //segun el postman para que cuando se elija el local se vaya al campo Direccion
+                    }
+                  });
+                }
+                //
+              });
