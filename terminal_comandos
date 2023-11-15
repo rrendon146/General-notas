@@ -1,0 +1,8 @@
+para proyecto:
+sh ./servidor.sh
+
+para nest:
+nest start --watch
+
+para node:
+npx nodemon index
