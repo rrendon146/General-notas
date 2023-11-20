@@ -1,0 +1,23 @@
+"se debe crear una funcion para el boton guardar del modal"
+"al crear la tabla detalle no figurara el icono de editar y eliminar hasta haber creado un item dentro de la tabla detalle"
+
+"Siempre se pondra el id no codigo en guardarmodaldoc()"
+
+funcion guardarmodaldoc() (ejemplo)
+"poner dentro de esta funcion el getitems ()para pintar la tabla detalle una vez guardado)
+"en el swagger se usa la url de "guardar" POST el normal sin detalle u otro"
+
+
+
+
+
+
+
+<------------------------------------------------------------------------------------------------>
+funcion(getitems) jalar tabla detalle una vez guardado
+"verificar" el swagger (localhost:3001/docs-api) en la parte "ajax" donde dice data: colocar segun el swager indica ejemplo "IdConst" y "Token")
+"en el swagger se usa la url de get detalle la url detalle o get detalle"
+
+let IdConst = $('#frmDocumento #id').val(); //en la seccion tbldetalle siempre se debe poner id debe de aparecer 0 al abrir Modal
+let Token = $('#frmDocumento #uu_id').val(); //
+
