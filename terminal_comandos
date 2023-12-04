@@ -2,7 +2,29 @@ para proyecto:
 sh ./servidor.sh
 
 para nest:
+cp env.develop .env
 nest start --watch
+
+
 
 para node:
 npx nodemon index
+
+una vez dentro del proyecto intranet,contabilidad,etc
+instalar estos codigos
+sudo apt install php-xml
+
+
+
+sudo apt-get install php-mbstring
+
+
+
+sudo apt-get install php7.0-curl
+
+
+
+sudo apt-get install php-intl
+
+y luego instalar el composer install para finalizar y levantar el servicio
+
