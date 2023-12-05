@@ -1,3 +1,7 @@
 entrar al repositorio nodejs-orq3 abriendo desde el vscode
 
 entrar al env.develop para acceder a las credenciales y conectarse al workbench base datos
+
+NOta: el puerto es por defecto en el workbench y no en el vscode segun registra.
+
+NOta: para agregar o connect to database agregar en el +
