@@ -1,0 +1,19 @@
+//(ejemplo para consultar "codigo" del vendedor que hizo tesoreria) se selecciona la tabla users y luego el codigo
+SELECT * FROM users WHERE id=47321; 
+
+
+//para consultar una tabla select from y poner en orden DESC
+SELECT * FROM users;
+DESC users
+
+
+//consulta columnas dentro de una tabla ejemplo tabla users
+SELECT id,name,dni from users;
+
+
+//consultas WHERE para consultas especificas dentro de una columna >, >=, <, <=, =, <> ("distinto o no contenga tal numero o nombre,etc")
+ejemplos
+SELECT * FROM users where Nombres='Raul'; (users=tabla;Nombres=columna;Raul=dato ingresado)
+SELECT * FROM users where Edad>28;
+SELECT * FROM users where id=47321;
+
