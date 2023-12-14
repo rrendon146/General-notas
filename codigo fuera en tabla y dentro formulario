@@ -1,0 +1,225 @@
+//ejemplo de como hacer codigo dentro del formulario (boton nuevo)
+//y codigo fuera del formulario que es en tablas(fuera del formulario)
+//en esta seccion se pondra la diferencia entre el codigo fuera del formulario(tablas) y dentro del formulario
+
+Tabla
+en este caso se creo un boton en tablas que cambia la contraseña con 2 parametros(creado en nest)
+
+          $(document).delegate('.passwordItem', 'click', function(event) {
+                event.preventDefault();
+                let id = $(this).data('id'), uuid = $(this).data('uuid'), $nombre = $(this).data('nombre'),Clave = $(this).data('Password');
+                //opcional clave=password//esto sirve para que jalar el id uuid y nombre fuera del formulario para ejecutar codigo en la tabla
+                var inputpassword = prompt("Actualizar contraseña");
+                //se creo un prompt para actualizar contraseña fuera del formulario en la tabla creando una variable
+                //esta variable es el que ejecutara el envio del password(se crea variable para ejecutar codigo fuera del formulario)
+                console.log(" :"+inputpassword);
+                //un console log para visualizar lo que se pone en el prompt en este caso la contraseña que se quiere crear
+                funcionPassword(uuid , inputpassword);
+                //luego la funcion para enviar el uuid y password (id del formulario)(son los 2 parametros para enviar en este caso password)
+            });
+
+
+//primer metodo de funcion opcional
+function funcionPassword(uuid, Password)
+{
+	//
+	try {
+		$('#TablaHomePs').waitMe({
+			effect  : 'facebook',
+			text    : 'Espere...',
+			bg      : 'rgba(255,255,255,0.7)',
+			color   : '#146436',fontSize:'20px',textPos : 'vertical',
+			onClose : function() {}
+		});
+
+        let token = $('#frmDocumento #uu_id').val();
+        let Clave = $('#frmDocumento #Password').val();
+
+
+		$.ajax({
+			url     : `${registro_empleados}cambio_clave`,
+			method  : "POST",
+			data    : { 
+                        uuid: uuid,
+                        Clave: Password,
+            },
+			dataType: "json",
+			headers : {
+				Authorization : `Bearer ${_session3001}`
+			}
+		})
+
+		.done(function(  json ,textStatus, xhr ) {
+			//
+            console.log(xhr.status);
+			switch ( xhr.status )
+            {
+                case 200:
+                    tostada2( { titulo : 'Correcto' , 'texto' : 'actualizado' , clase : 'success' } );
+                    //
+                    $.each( json.data , function( key , value ){
+                        $('#frmDocumento #'+key).val(value);
+
+                    }); 
+
+                    $('#frmDocumento #Password').trigger('change');
+
+                    getAll();
+
+                    //
+                break;
+                case 202:
+                    // denegado...
+                    tostada( json.title , json.texto , json.clase );
+                break;
+                default:
+                break;
+            }
+			/**/
+		})
+		.fail(function(xhr, status, error) {
+            switch (xhr.status) {
+                case 400://varios mensajes
+                    let responseJSON = xhr.responseJSON;
+                    let message = responseJSON.message;
+                    if( message.length > 0 ){
+                        for (let index = 0; index < message.length; index++) {
+                            const item = message[index];
+                            tostada2( { titulo : 'Error' , 'texto' : item , clase : 'error' } );
+                        }
+                    }else{
+                        tostada2( { titulo : 'Error' , 'texto' : `${xhr.status}-${error}` , clase : 'error' } );
+                    }
+                break;
+                case 409:
+                case 404:
+                    tostada2( { titulo : `${xhr.status}-${error}` , 'texto' : `${xhr.responseJSON.message}` , clase : 'error' } );
+                break;
+                default:
+                    tostada2( { titulo : 'Error' , 'texto' : `${xhr.status}-${error}` , clase : 'error' } );
+                break;
+            }
+			$('#TablaHomePs').waitMe('hide');
+		})
+		.always(function() {
+			$('#TablaHomePs').waitMe('hide');
+		});
+	} catch (error) {
+		alert( error );
+		$('#TablaHomePs').waitMe('hide');
+	}
+	//
+}
+
+
+
+//segundo metodo de funcion correcta
+//en este caso se pone los dos parametros uuid y inputpassword(no es password ya que eso esta dentro del formulario, fuera del formulario en tablas se crea una variable para el password
+//esta funcion es del proyecto admin modulo registro de empleados, su similar que fue copiado del proyecto admin modulo solicitud de equipos
+
+function funcionPassword(uuid, inputpassword) 
+{
+	//
+	try {
+		$('#TablaHomePs').waitMe({ //para actualizar la tabla llamado id tablahomeps
+			effect  : 'facebook',
+			text    : 'Espere...',
+			bg      : 'rgba(255,255,255,0.7)',
+			color   : '#146436',fontSize:'20px',textPos : 'vertical',
+			onClose : function() {}
+		});
+
+        let token = $('#frmDocumento #uu_id').val();
+        //este codigo funciona dentro del formulario ya que esta jalando el uuid y password que esta dentro del formulario,crear variable funciona en tabla
+        let Clave = $('#frmDocumento #Password').val();
+        //este codigo funciona dentro del formulario ya que esta jalando el uuid y password que esta dentro del formulario,crear variable funciona en tabla
+        //se comprobo quitando este codigo aun funciona el envio de uuid y password (opcional codigo)
+
+        //token y clave son los dos parametros creados en nest token=uuid;clave=password
+
+
+		$.ajax({
+			url     : `${registro_empleados}cambio_clave`, //link para enviar el cambio de contraseña visto en swagger
+			method  : "POST", //visto en swagger el metodo
+			data    : { 
+                        uuid: uuid,
+                        Clave: inputpassword,
+                        //data es lo que se requiere enviar en este caso son los dos parametros uuid y password
+            },
+			dataType: "json", //tipo de dato json 
+			headers : {
+				Authorization : `Bearer ${_session3001}` //acceso token de autorizacion
+			}
+		})
+
+		.done(function(  json ,textStatus, xhr ) {
+			//
+            console.log(xhr.status);
+			switch ( xhr.status )
+            {
+                case 200:
+                    tostada2( { titulo : 'Correcto' , 'texto' : 'actualizado' , clase : 'success' } );
+                    //
+                    $.each( json.data , function( key , value ){ //opcional
+                        $('#frmDocumento #'+key).val(value);
+
+                    }); 
+
+                    $('#frmDocumento #Password').trigger('change'); //opcional
+
+                    getAll(); // para actualizar la tabla al momento de ingresar nueva contraseña 
+
+                    //
+                break;
+                case 202:
+                    // denegado...
+                    tostada( json.title , json.texto , json.clase );
+                break;
+                default:
+                break;
+            }
+			/**/
+		})
+		.fail(function(xhr, status, error) {
+            switch (xhr.status) {
+                case 400://varios mensajes
+                    let responseJSON = xhr.responseJSON;
+                    let message = responseJSON.message;
+                    if( message.length > 0 ){
+                        for (let index = 0; index < message.length; index++) {
+                            const item = message[index];
+                            tostada2( { titulo : 'Error' , 'texto' : item , clase : 'error' } );
+                        }
+                    }else{
+                        tostada2( { titulo : 'Error' , 'texto' : `${xhr.status}-${error}` , clase : 'error' } );
+                    }
+                break;
+                case 409:
+                case 404:
+                    tostada2( { titulo : `${xhr.status}-${error}` , 'texto' : `${xhr.responseJSON.message}` , clase : 'error' } );
+                break;
+                default:
+                    tostada2( { titulo : 'Error' , 'texto' : `${xhr.status}-${error}` , clase : 'error' } );
+                break;
+            }
+			$('#TablaHomePs').waitMe('hide');
+		})
+		.always(function() {
+			$('#TablaHomePs').waitMe('hide');
+		});
+	} catch (error) {
+		alert( error );
+		$('#TablaHomePs').waitMe('hide');
+	}
+	//
+}
+
+
+
+Formulario codigo para aprobar o editar(cambiar password)
+
+
+
+        let token = $('#frmDocumento #uu_id').val();
+        let Clave = $('#frmDocumento #Password').val();
+
