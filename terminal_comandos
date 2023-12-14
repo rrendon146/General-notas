@@ -11,6 +11,10 @@ para node:
 npx nodemon index
 
 una vez dentro del proyecto intranet,contabilidad,etc
+
+instalar el composer:
+composer install
+
 instalar estos codigos
 sudo apt install php-xml
 
