@@ -9,6 +9,7 @@ nest start --watch
 
 para node:
 npx nodemon index
+version 18.10 tener esta version, ejecutar comando node --version para saber
 
 una vez dentro del proyecto intranet,contabilidad,etc
 
