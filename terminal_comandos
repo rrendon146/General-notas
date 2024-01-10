@@ -7,11 +7,16 @@ nest start --watch
 
 
 
+
 para node:
 npx nodemon index
 version 18.10 tener esta version, ejecutar comando node --version para saber
 entrar en vscode orq3 de nodejs y cambiar index.js comentar "produccion" y habilitar "develop" quitando slash del comentario
 
+(tambien dar permisos de sudo si sale error a la carpeta project-landing/public/ en el terminal y ejecutar el comando chmod -R 777 xml y luego digitar
+el comando pwd para copiar y pegar la URL /home/rrendon/documents/...codeigniter/ y pegarlo en el vscode)
+(si sale error al editar al levantar con node, abrir la carpeta nest-api-mysql con vscode y .env poner la ruta url_codeigniter el siguiente
+/home/rrendon/Documents/repositorios/codeigniter/ "hasta la carpeta codeigniter")
 
 
 una vez dentro del proyecto intranet,contabilidad,etc
