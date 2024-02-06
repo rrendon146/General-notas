@@ -16,7 +16,7 @@ ADD COLUMN ZZZZ VARCHAR(150); //
 /////////////////////////////////////////////////////
 crear una columna adicional en una tabla ya creada sql
 
-alter table orq_entrega_uniformes_cab(ejemplo) add IdUsuario bigint null;
+alter table orq_entrega_uniformes_cab(ejemplo) add IdUsuario bigint null AFTER IdUsuario;   after sera despues de la columna idusuario ejemplo
 //////////////////////////////////////////////////////////
 
 
