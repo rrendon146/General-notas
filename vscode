@@ -1,0 +1,2 @@
+abrir vscode como superuser una carpeta 
+sudo code /path --user-data-dir='.' --no-sandbox
