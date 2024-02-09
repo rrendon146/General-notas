@@ -3,7 +3,8 @@ sh ./servidor.sh
 
 para nest:
 cp env.develop .env
-nest start --watch
+entrar a la carpeta nest/nest-mysql abrir terminal e instalar npm install luego nest start --watch
+
 
 
 
