@@ -1,10 +1,11 @@
-orden creacion
+////////////////////////////ORDEN CREACION////////////////////////////////////////////////////////////////
 
 .entity agregar columnas / ahora entity la tabla pasar a controller y service mediante module entrar .module/ pasar a controller empezando a copiar y pegar
 los import y copiar el api tag al main.ts por orden alfabetico luego agregar el 200 al post,get,get / luego crear el dto create 
 
+///////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-//comentarios/////////////////////////////////////////////////////////////////////
+//////////////////////////////////COMENTARIOS/////////////////////////////////////////////////////////////////////
 - articulo e idarticulo son valores string porque en el softcom tiene codigo con letras, no numeros.
 
 - EL endpoint esta en el .controller del proyecto (ejem @Controller ('entrega-uniformes-cab'))
@@ -13,7 +14,7 @@ los import y copiar el api tag al main.ts por orden alfabetico luego agregar el 
 ///////////////////////////////////////////////////////////////////////////////////
 
     
-//.service proyecto logistica/modulo entrega uniformes error corregido en impresion detalle
+///////////////////////// .service proyecto logistica/modulo entrega uniformes error corregido en impresion detalle ////////////////////
 async create(dto: CreateEntregaUniformesCabDto) {
 
 
@@ -44,7 +45,108 @@ async create(dto: CreateEntregaUniformesCabDto) {
 
 ///////////////////////////////////////////////////////////////////////////////////
 ////////////////crear funcion para imprimir documento /////////////////////////////
-Ir carpeta utilidades en .service y crear un nuevo css
+- Ir carpeta utilidades en .service y crear un nuevo css
+    
+- Luego ir .service del proyecto a ejecutar y en la parte superior en importa copiar los codigos
+import { readFileSync, writeFileSync } from 'fs';
+const execShPromise = require("exec-sh").promise;
+
+import * as moment from 'moment';
+import 'moment/locale/pt-br';
+import { v4 as uuidv4 } from 'uuid';
+
+(esto se encuentra en nest gitdedany)
+
+- luego crear la funcion generarHtml en create, update y aparte (parte inferior) del proyecto .service
+en create:
+
+let data1 = await this.registroEmpleadoModel.findOne({   //registroEmpleadoModel se cambia segun el proyecto
+      where : {
+        id : data.id                                     //data es del codigo .save ejem:     let data = await this.registroEmpleadoModel.save( newArea ); (esta dentro del create)
+      }
+    });                                                  //se agrego data1 variable para poner en el pametro generarhtml "findOne"
+
+
+await this.generarHtml( data1 );
+
+en update:
+
+  let data = await this.registroEmpleadoModel.findOne({    //codigo ya existente en el proyecto
+      where : {
+        uu_id: uuid
+
+      }
+
+    });
+
+  await this.generarHtml( data );           //data viene de la variable data de findOne
+
+funcion parte inferior codigo:
+
+async generarHtml( dataCab:RegistroEmpleadoModel )
+{
+  //
+  let cssDeclaracionJurada = await this.util.cssDeclaracionJurada();
+  let _URL_NEST_MYSQL = process.env.URL_NEST_MYSQL;
+  let urlNest = process.env.URL_NEST_MYSQL;
+
+
+
+  let html = `
+
+  //aqui va el html //
+
+
+  ${cssDeclaracionJurada} // terminando el head se declara el css
+      </head>
+`;
+
+// TERMINAMOS DE ESCRIBIR EL ARCHIVO
+let _uuid = uuidv4();
+let _URL_PROYECTO = process.env.URL_PROYECTO;
+let NombreArchivo = `${_uuid}`;
+NombreArchivo     = `${dataCab.DNI}`;
+let pathPhp       = `${process.env.URL_PROYECTO}public/html/${NombreArchivo}.html`;
+writeFileSync( pathPhp , html );
+
+// ESCRIBIMOS EL SH PARA CONVERTIR A PDF
+let _fileFinal = `SH-${NombreArchivo}.sh`;
+let pathSH = `${process.env.URL_PROYECTO}public/html/${_fileFinal}`;
+let _dataEscribe = `
+#!/bin/bash
+cd ${_URL_PROYECTO}public/html/
+# Pasamos html a pdf
+xvfb-run wkhtmltopdf --enable-local-file-access ${NombreArchivo}.html ${NombreArchivo}.pdf
+# Eliminamos archivo SH
+cd ${_URL_PROYECTO}public/html/
+# rm ${NombreArchivo}.html
+`;
+writeFileSync( pathSH , _dataEscribe );
+//
+return {
+ bash    : _fileFinal,
+ file    : `${NombreArchivo}`,
+ version : 1,
+ //data    : data
+};
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
