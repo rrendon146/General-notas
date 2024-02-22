@@ -4,10 +4,15 @@ orden creacion
 los import y copiar el api tag al main.ts por orden alfabetico luego agregar el 200 al post,get,get / luego crear el dto create 
 
 
-//comentarios//
-articulo e idarticulo son valores string porque en el softcom tiene codigo con letras, no numeros.
+//comentarios/////////////////////////////////////////////////////////////////////
+- articulo e idarticulo son valores string porque en el softcom tiene codigo con letras, no numeros.
+
+- EL endpoint esta en el .controller del proyecto (ejem @Controller ('entrega-uniformes-cab'))
 
 
+///////////////////////////////////////////////////////////////////////////////////
+
+    
 //.service proyecto logistica/modulo entrega uniformes error corregido en impresion detalle
 async create(dto: CreateEntregaUniformesCabDto) {
 
@@ -36,3 +41,15 @@ async create(dto: CreateEntregaUniformesCabDto) {
       version: '1' ,
     };
   }
+
+///////////////////////////////////////////////////////////////////////////////////
+////////////////crear funcion para imprimir documento /////////////////////////////
+Ir carpeta utilidades en .service y crear un nuevo css
+
+
+
+
+
+
+
+
