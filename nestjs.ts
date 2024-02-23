@@ -132,9 +132,54 @@ return {
 }
 
 
+///////////////////////////////////////////////////////////////////////
+///////////////////////CONVERTIR HTML A PDF IMPRESION /////////////////////////////////////
 
 
+en el .service:
+- pegar codigo sin modificar
 
+async transformarHtml( file : string )
+  {
+    //
+
+    let out;
+
+    try {
+      let _URL_PROYECTO = process.env.URL_PROYECTO;
+      let comando = `xvfb-run wkhtmltopdf --enable-local-file-access ${_URL_PROYECTO}public/html/${file}.html ${_URL_PROYECTO}public/html/${file}.pdf`;
+      out = await execShPromise( comando , true);
+    } catch (e) {
+      console.log('Error: ', e);
+      console.log('Stderr: ', e.stderr);
+      console.log('Stdout: ', e.stdout);
+
+      return e;
+    }
+
+    console.log('out: ', out.stdout, out.stderr);
+
+  return {
+    data : 'ok'
+  };
+
+  }
+
+- luego parte superior pegar codigo
+
+async generarPDF( IdCab : number )
+  {
+    //
+    let data = await this.entregaUniformesCabModel.findOne({
+      where : {
+        id  : IdCab
+      }
+    });
+    let NombreArchivo     = `${data.Codigo}`;
+    await this.transformarHtml( NombreArchivo );
+    return NombreArchivo;
+    //
+  }
 
 
 
