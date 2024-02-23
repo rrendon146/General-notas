@@ -165,14 +165,14 @@ async transformarHtml( file : string )
 
   }
 
-- luego parte superior pegar codigo
+- luego parte superior pegar codigo (para registros-empleados no se requirio el codigo)
 
 async generarPDF( IdCab : number )
   {
     //
     let data = await this.entregaUniformesCabModel.findOne({
       where : {
-        id  : IdCab
+        id  : IdCab                                                    //IdCab es el id del detalle proyecto entrega_uniformes
       }
     });
     let NombreArchivo     = `${data.Codigo}`;
@@ -181,7 +181,15 @@ async generarPDF( IdCab : number )
     //
   }
 
+- en .controller del proyecto
 
+   @Post('pdf-uno')
+   @HttpCode(200)
+   async handleGenerarUno( @Body('id') id : string )                        //id en proyecto registros_empleados y en entrega uniformes IdCab id del detalle
+   {
+     //
+     return this.registroEmpleadosService.transformarHtml( id );
+   }
 
 
 
