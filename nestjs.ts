@@ -1,5 +1,7 @@
 ////////////////////////////ORDEN CREACION////////////////////////////////////////////////////////////////
 
+Creacion endpoint en el terminal Nestjs en el modo sudo: nest generate resource orq_informacion_planillas --no-spec
+
 .entity agregar columnas / ahora entity la tabla pasar a controller y service mediante module entrar .module/ pasar a controller empezando a copiar y pegar
 los import y copiar el api tag al main.ts por orden alfabetico luego agregar el 200 al post,get,get / luego crear el dto create 
 
