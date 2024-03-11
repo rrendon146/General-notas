@@ -2,7 +2,7 @@
 
 Creacion endpoint en el terminal Nestjs en el modo sudo: nest generate resource informacion_planillas --no-spec   "SIN EL ORQ"
 
-.entity agregar columnas / ahora entity la tabla pasar a controller y service mediante module entrar .module/ pasar a controller empezando a copiar y pegar
+.entity agregar columnas / entrar .module (lo quea hara entity unira controller y service mediante module / pasar a controller empezando a copiar y pegar
 los import y copiar el api tag al main.ts por orden alfabetico luego agregar el 200 al post,get,get / luego crear el dto create 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////
