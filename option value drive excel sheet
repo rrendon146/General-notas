@@ -1,0 +1,3 @@
+hecho en C1 option value y concatenar en C2
+<option value='
+=CONCATENAR($C$1,A2,"' >",B2,"</option>")
