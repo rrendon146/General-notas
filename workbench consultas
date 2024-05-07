@@ -21,3 +21,14 @@ SELECT * FROM users where id=47321;
 //MOSTRAR LOS DATOS DE UNA TABLA
 SHOW CREATE TABLE orq_requisicion_cab;
 
+
+// Consulta orq_informacion_planillas / incluido codigo del cliente y codigo de la sucursal sumado a las columnas que se quiere extrar en excel
+
+SELECT cc.CodContable as CC, p.IdSucursal AS 'Sucursal', p.PuestoIso as 'OCUPACION' , p.TotalNroTrab as 'Total Nro Trabajo',
+p.Basico as 'Basico', p.AsigFam as 'Asignacion Familiar', p.Mhext as 'Horas Extras', p.TotalMovilidad as 'Total Movilidad',
+p.BonoNocturno as 'Bonificacion', p.OtrosBonos as 'Otros Bonos', p.Total as 'Total'
+
+FROM orq_informacion_planillas p
+INNER JOIN utb_centrocostos cc ON cc.ruc = p.IdCliente 
+ORDER BY id DESC LIMIT 10000;
+
