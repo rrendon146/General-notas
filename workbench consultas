@@ -17,6 +17,8 @@ SELECT * FROM users where Nombres='Raul'; (users=tabla;Nombres=columna;Raul=dato
 SELECT * FROM users where Edad>28;
 SELECT * FROM users where id=47321;
 
+//BORRAR UNA FILA DE UNA TABLA
+DELETE FROM `orq_lideres_equipo` WHERE id=18;
 
 //MOSTRAR LOS DATOS DE UNA TABLA
 SHOW CREATE TABLE orq_requisicion_cab;
