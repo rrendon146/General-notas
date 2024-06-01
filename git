@@ -1,0 +1,19 @@
+                  <LOCAL>                              <REMOTE>
+WORKING          STAGING            LOCAL                REMOTE
+DIRECTORY         AREA              REPO                  REPO
+|                   |                  |                    |
+ --------->git add-->                  |                    |
+|                   |                  |                    |
+|                   ------git commit--->                    |
+|                   |                  |                    |
+|                   |                   --------git push---->
+|                   |                  |                    |
+|                   |                  <----git fetch--------
+|                   |                  |                    |
+<------------git checkout--------------|                    |  
+|                   |                  |                    |
+<------------git merge-----------------|                    |
+
+- crear repo public o privadod en github
+- copiar con git clone la carpeta subida a github abriendo una terminal desde la carpeta donde se descargara
+-
