@@ -16,4 +16,12 @@ DIRECTORY         AREA              REPO                  REPO
 
 - crear repo public o privadod en github
 - copiar con git clone la carpeta subida a github abriendo una terminal desde la carpeta donde se descargara
--
+- ir al repositorio (carpeta del proyecto) git status en el terminal para visualizar el cambio que se realizo
+- git diff para comparar entre el cambio que se realizo con el anterior
+- git add . para subir los cambios
+- git commit -m "aqui se añade el texto del commit que se realizo"
+- git push para subir al github
+- 
+
+
+
