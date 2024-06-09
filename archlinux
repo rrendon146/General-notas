@@ -1,0 +1,18 @@
+terminal:
+oh my zsh---------->
+nano .zshrc / editar oh my zsh para editar plugins o themes
+source .zshrc / para reloead el terminal y activar los cambios
+
+
+buscar archivo en terminalk--------->
+sudo find / -iname "nombre archivo"  / busqueda de archivo en la raiz
+
+configurar picom opacity ------------>
+sudo pacman -S picom
+sudo find / -iname picom.conf // busca en que carpeta se encuentra
+nano picom.conf // entrar carpeta y editar archivo
+
+
+
+update y upgrade en terminal ----->
+sudo pacman -Syu
