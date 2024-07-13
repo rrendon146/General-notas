@@ -43,3 +43,6 @@ export default function App() {
   text-align: center;
 }
 <----------------------------------------------------------------------------------------------------------->
+
+//error popper.js core para bootstrap 5 solucion de error
+  npm install @popperjs/core --save
