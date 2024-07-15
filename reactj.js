@@ -46,3 +46,9 @@ export default function App() {
 
 //error popper.js core para bootstrap 5 solucion de error
   npm install @popperjs/core --save
+
+// en caso de error en node_modules por algunos paquetes digitar comando:
+sudo rm -rf node_modules
+luego sudo npm install
+
+//
