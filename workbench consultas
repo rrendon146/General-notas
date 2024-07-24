@@ -34,3 +34,12 @@ FROM orq_informacion_planillas p
 INNER JOIN utb_centrocostos cc ON cc.ruc = p.IdCliente 
 ORDER BY id DESC LIMIT 10000;
 
+// INNER JOIN JUNTAR 2 TABLAS orq respuesta cab y det
+SELECT IdCapac, DniUsuario, Usuario, Puntaje, Aciertos, Errores, Glosa, Pregunta, PuntosPregunta,
+Respuesta, RespuestaValida
+FROM orq_respuesta_capacitaciones_cab
+INNER JOIN orq_respuesta_capacitaciones_det
+ON orq_respuesta_capacitaciones_cab.id = orq_respuesta_capacitaciones_det.IdCab
+WHERE IdEncSat is null // este codigo para filtrar la columna con contenido null y not null
+
+
