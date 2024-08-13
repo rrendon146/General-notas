@@ -24,23 +24,20 @@ el comando pwd para copiar y pegar la URL /home/rrendon/documents/...codeigniter
 
 una vez dentro del proyecto intranet,contabilidad,etc
 
-instalar el composer:
-composer install
-
 instalar estos codigos
-sudo apt install php-xml
+sudo apt install php8.2-xml
 
 
 
-sudo apt-get install php-mbstring
+sudo apt-get install php8.2-mbstring
 
 
 
-sudo apt-get install php7.0-curl
+sudo apt-get install php8.2-curl
 
 
 
-sudo apt-get install php-intl
+sudo apt-get install php8.2-intl
 
-y luego instalar el composer install para finalizar y levantar el servicio
+y luego instalar el composer install para finalizar y levantar el servicio (siempre especificar la version del php o el que se use)
 
