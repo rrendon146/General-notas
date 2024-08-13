@@ -3,7 +3,7 @@ PARA CODEIGNITER SE USA EL PHP 8.2 SE DEBE BORRAR TODOS LOS PHP RESTANTES
 para proyecto:
 sh ./servidor.sh
 
-para nest:
+para nest: instalar version 18 de nodejs
 cp env.develop .env
 entrar a la carpeta nest/nest-mysql abrir terminal e instalar npm install luego nest start --watch
 
@@ -41,3 +41,17 @@ sudo apt-get install php8.2-intl
 
 y luego instalar el composer install para finalizar y levantar el servicio (siempre especificar la version del php o el que se use)
 
+
+--------------------------------------------------PARA BORRAR RASTRO DE NODE --
+sudo rm -rf /usr/local/bin/npm 
+sudo rm -rf /usr/local/share/man/man1/node* 
+sudo rm -rf /usr/local/lib/dtrace/node.d 
+sudo rm -rf ~/.npm 
+sudo rm -rf ~/.node-gyp 
+sudo rm -rf /opt/local/bin/node 
+sudo rm -rf opt/local/include/node 
+sudo rm -rf /opt/local/lib/node_modules  
+
+sudo rm -rf /usr/local/lib/node*
+sudo rm -rf /usr/local/include/node*
+sudo rm -rf /usr/local/bin/node*
