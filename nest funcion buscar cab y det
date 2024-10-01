@@ -1,0 +1,48 @@
+//una vez relacionado las tablas funcion buscar dentro del cab y det tablas donde nrotelefono es det y cab idresponsable ejemplo
+
+  async buscar(
+    NroPlaca: string,
+    IdResponsable: number,
+    NroTelefono: string,
+    Responsable: string,
+    Observaciones:string,
+    Codigo:string,
+
+  ) {
+    let queryC = this.solicitudEquipoModel
+      .createQueryBuilder('c')
+      .where('id > 0 ');
+
+    const where = await this.solicitudEquipoModel.createQueryBuilder(
+      'solicitud-equipos',
+    );
+
+    if (NroPlaca) {
+      where.andWhere('NroPlaca = :NroPlaca', { NroPlaca: NroPlaca });
+    }
+    if (IdResponsable) {
+      where.andWhere('IdResponsable like CONCAT("%",:IdResponsable,"%") ', { IdResponsable });
+    }
+    if (NroTelefono) {
+      where.andWhere('NroTelefono like CONCAT("%",:NroTelefono,"%") ', { NroTelefono });
+    }
+
+    if (Responsable) {
+      where.andWhere('Responsable like CONCAT("%",:Responsable,"%") ', { Responsable });
+    }
+    if (Observaciones) {
+      where.andWhere('Observaciones like CONCAT("%",:Observaciones,"%") ', { Observaciones });
+    }
+    if (Codigo) {
+      where.andWhere('Codigo like CONCAT("%",:Codigo,"%") ', { Codigo });
+    }
+
+    const dataCab = await where
+      .leftJoinAndSelect('solicitud-equipos.detalle', 'detalle')
+      .getMany();
+
+    return {
+      data: dataCab,
+      version: '1',
+    };
+}
