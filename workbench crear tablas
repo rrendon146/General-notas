@@ -13,6 +13,9 @@ ADD COLUMN XXXX VARCHAR(150), // AÑADIR varias columnas
 ADD COLUMN YYYY VARCHAR(150), //
 ADD COLUMN ZZZZ VARCHAR(150); //
 
+////////////CAMBIAR EL NOMBRE POR OTRO NOMBRE//////////////
+alter table orq_solicitud_equipos_cab CHANGE LICENCIA Licencia VARCHAR(150) null; 
+
 /////////////////////////////////////////////////////
 crear una columna adicional en una tabla ya creada sql
 
