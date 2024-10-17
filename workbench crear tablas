@@ -22,7 +22,12 @@ crear una columna adicional en una tabla ya creada sql
 alter table orq_entrega_uniformes_cab(ejemplo) add IdUsuario bigint null AFTER IdUsuario;   after sera despues de la columna idusuario ejemplo
 //////////////////////////////////////////////////////////
 
+////////////////////////////////////////////////////////////
+ELIMINAR COLUMNA DE UNA TABLA
 
+alter table orq_solicitud_equipos_cab drop IdClienteProv ;
+
+///////////////////////////////////////////////////////////////
 truncate table orq_boleta_salida; //borrar
 
 DROP TABLE if exists ssays01.orq_boleta_salida; //para borrar
