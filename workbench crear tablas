@@ -28,6 +28,12 @@ ELIMINAR COLUMNA DE UNA TABLA
 alter table orq_solicitud_equipos_cab drop IdClienteProv ;
 
 ///////////////////////////////////////////////////////////////
+CAMBIAR BIGINT TO VARCHAR O VICEVERSA COLUMNA
+
+alter table orq_solicitud_equipos_cab MODIFY COLUMN IdClienteProv VARCHAR(150) null;
+
+///////////////////////////////////////////////////////////////
+
 truncate table orq_boleta_salida; //borrar
 
 DROP TABLE if exists ssays01.orq_boleta_salida; //para borrar
