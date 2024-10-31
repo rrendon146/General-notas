@@ -42,4 +42,11 @@ INNER JOIN orq_respuesta_capacitaciones_det
 ON orq_respuesta_capacitaciones_cab.id = orq_respuesta_capacitaciones_det.IdCab
 WHERE IdEncSat is null // este codigo para filtrar la columna con contenido null y not null
 
-
+// CONSULTAR POR AÑO Y POR MES CAB Y DET
+SELECT 
+c.IdRequisicion,c.Solicitante, c.AutorizadoPor, c.CentroCostos, c.Glosa,c.Fecha,c.Estado, c.created_at as 'creado',
+d.IdArticulo, d.Articulo, d.UnidadMedida, d.Cantidad, d.Glosa
+ FROM orq_requisicion_almacen_cab c
+INNER JOIN orq_requisicion_almacen_det d ON d.IdRequisicion = c.IdRequisicion
+WHERE year(c.Fecha) = 2024 and month(c.Fecha) = 10
+ORDER BY c.Fecha asc limit 100000;
