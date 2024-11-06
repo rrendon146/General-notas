@@ -1,3 +1,0 @@
-sudo update-alternatives --config php
-
-y seleccionar la version
