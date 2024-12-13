@@ -1,0 +1,39 @@
+/* CONTAR EN NUMEROS ALGUNA COLUMNA O ID*/
+
+function chartData(table) {
+                var counts = {};
+        
+                // Count the number of entries for each Responsable
+                table.rows({ search: 'applied' }).every(function(rowIdx, tableLoop, rowLoop) {
+                    var rowData = this.data();
+                    if (rowData.Estado === "Aprobado") {
+                        if (counts[rowData.Responsable]) {
+                            counts[rowData.Responsable] += 1;
+                        } else {
+                            counts[rowData.Responsable] = 1;
+                        }
+                    }
+                });
+        
+                // Convert the counts object into an array of objects for Highcharts
+                var data = Object.entries(counts).map(([name, y]) => ({ name, y }));
+        
+                return data;
+            }
+
+/* combinar columnas */
+function chartData(table) {
+                var data = [];
+
+                // Extract data from Codigo and Solicitante columns
+                table.rows({ search: 'applied' }).every(function(rowIdx, tableLoop, rowLoop) {
+                    var rowData = this.data();
+
+                    data.push({
+                        name: rowData.Responsable,
+                        y: parseInt(rowData.id) || 0 // Ensure the value is a number
+                    });
+                });
+
+                return data;
+            }
