@@ -1,11 +1,9 @@
 192.168.15.231
-levantar el xampp mysql y apache
 
 luego
 
-ir a la carpeta C:\node\node-mssql y abrir desde la carpeta con el git bash terminal 
-digitar el siguiente comando
-$ node --max-old-space-size=2120 index.js
+ir a la carpeta Documents/orquesta_concar
+node index
 
-ir a la carpeta C:\node\ORQ2 y abrir con el git bash terminal dentro de la carpeta
-$ node --max-old-space-size=2120 index.js
+ir a la carpeta Documents/nodejs/ORQ2
+node index
