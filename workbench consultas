@@ -50,3 +50,6 @@ d.IdArticulo, d.Articulo, d.UnidadMedida, d.Cantidad, d.Glosa
 INNER JOIN orq_requisicion_almacen_det d ON d.IdRequisicion = c.IdRequisicion
 WHERE year(c.Fecha) = 2024 and month(c.Fecha) = 10
 ORDER BY c.Fecha asc limit 100000;
+
+// Conteo de Valores por votos de una tabla agrupando, ejemplo "campana-det"
+SELECT Valor, count(Valor) from orq_campana_det WHERE Token = '74fd6e95-0e79-4ad2-9c1b-f62290f23dfb' group by Valor;
