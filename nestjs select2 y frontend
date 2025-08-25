@@ -1,0 +1,66 @@
+// backend 
+// controller el buscar tiene que estar arriba manejar un orden
+
+  @Get('buscar')
+  @HttpCode(200)
+  async handleBuscadorGet(@Query('query') query: string) {
+    return this.milPreguntasService.buscardorSelect2(query);
+  }
+
+//service 
+  async buscardorSelect2(q: string) {
+    this.util.varDump(q);
+
+    let QueryC = this.milPreguntaModel.createQueryBuilder("p")
+      .where('(LOWER(COALESCE(p.Codigo, \'\')) LIKE :query OR LOWER(COALESCE(p.Descripcion, \'\')) LIKE :query)', { query: `%${q.toLowerCase()}%` })
+      .andWhere('p.Estado = :estado', { estado: 'Digitado' })
+      .orderBy('p.Codigo', 'ASC')
+      .take(50); // Limitar a 50 resultados para mejor rendimiento
+    
+    let data = await QueryC.getMany();
+
+    let dataFin = [];
+    this.util.varDump(`>>> BUSCAR MIL PREGUNTAS SELECT2 APP >>> ${data.length} `);
+    
+    for (let index = 0; index < data.length; index++) {
+      const rs = data[index];
+      dataFin.push({
+        id: rs.id || 0,          
+        text: rs.Descripcion || '', // Solo la descripción
+        codigo: rs.Codigo || '',
+        descripcion: rs.Descripcion || '',
+        estado: rs.Estado || ''
+      });
+    }
+    
+    return dataFin; // Directamente el array para Select2
+  }
+
+//html 
+
+      let Descripcion = $('#frmDetalle #Descripcion').select2({
+                ajax: {
+                    url: `${_URL_NESTMy}v1/mil-preguntas/buscar/`,
+                    dataType: 'json',
+                    data: function (params) {
+                        return { query: params.term };
+                    },
+                    headers: {
+                        Authorization: `Bearer ${_session3001}`
+                    },
+                    processResults: function (data) {
+                        return {
+                            results: data
+                        };
+                    }
+                },
+                minimumInputLength: 3,
+                width: '100%',
+            });
+            /* ------------------------------------------------------------- */
+            /* ------------------------------------------------------------- */
+            Descripcion.on("select2:select", function (e) { 
+                var _Id = e.params.data.id, _Texto = e.params.data.text;
+                $('#frmDetalle #Descripcion').val(_Texto);
+            });
+
