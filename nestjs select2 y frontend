@@ -1,3 +1,4 @@
+//OPCION 1 BUSQUEDA DE SELECT2 DESPLEGANDO BUSQUEDA CUANDO SE DIGITE 3 PALABRAS
 // backend 
 // controller el buscar tiene que estar arriba manejar un orden
 
@@ -64,3 +65,74 @@
                 $('#frmDetalle #Descripcion').val(_Texto);
             });
 
+//OPCION 2 BUSQUEDA DE SELECT2 DESPLEGANDO BUSQUEDA CUANDO SE DIGITE 3 PALABRAS
+//BACKEND
+//NESTJS CONTROLLER
+
+  async buscardorSelect2(q: string) {
+    this.util.varDump(q);
+
+    let QueryC = this.milPreguntaModel.createQueryBuilder("p")
+      .where('p.Estado = :estado', { estado: 'Digitado' })
+      .orderBy('p.Codigo', 'ASC');
+
+    // Si hay query, aplicar filtro de búsqueda
+    if (q && q.trim().length > 0) {
+      QueryC.andWhere('(LOWER(COALESCE(p.Codigo, \'\')) LIKE :query OR LOWER(COALESCE(p.Descripcion, \'\')) LIKE :query)', { query: `%${q.toLowerCase()}%` });
+    }
+    
+    let data = await QueryC.getMany();
+
+    let dataFin = [];
+    this.util.varDump(`>>> BUSCAR MIL PREGUNTAS SELECT2 APP >>> ${data.length} `);
+    
+    for (let index = 0; index < data.length; index++) {
+      const rs = data[index];
+      dataFin.push({
+        id: rs.id || 0,          
+        text: rs.Descripcion || '',
+        codigo: rs.Codigo || '',
+        estado: rs.Estado || ''
+      });
+    }
+    
+    return dataFin;
+  }
+
+//FRONTEND
+            let Descripcion = $('#frmDetalle #Descripcion').select2({
+                ajax: {
+                    url: `${_URL_NESTMy}v1/mil-preguntas/buscar/`,
+                    dataType: 'json',
+                    data: function (params) {
+                        return { 
+                            query: params.term || '' // Envía string vacío si no hay término
+                        };
+                    },
+                    headers: {
+                        Authorization: `Bearer ${_session3001}`
+                    },
+                    processResults: function (data) {
+                        return {
+                            results: data
+                        };
+                    }
+                },
+                minimumInputLength: 0, // Cambiado de 3 a 0 para mostrar todo desde el inicio
+                width: '100%',
+                placeholder: 'Seleccione una pregunta...',
+                allowClear: true,
+                
+            });
+
+            /* ------------------------------------------------------------- */
+            /* ------------------------------------------------------------- */
+            Descripcion.on("select2:select", function (e) {
+                var _Id = e.params.data.id;
+                var _Texto = e.params.data.text;
+                var _Cod = e.params.data.codigo;
+
+                $('#frmDetalle #Descripcion').val(_Texto);
+                $('#frmDetalle #CodPregunta').val(_Cod);
+                $('#frmDetalle #IdPregunta').val(_Id);
+            });
