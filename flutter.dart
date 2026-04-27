@@ -22,10 +22,7 @@ fvm flutter --version  # Flutter 3.35.3
 
 
 PASO 1: Crear Estructura Base
-# Crear carpeta principal
 cd 2026
-mkdir nuevo_proyecto
-cd nuevo_proyecto
 
 # Crear app Flutter
 fvm flutter create mi_app --platforms android,ios,web,linux,windows --project-name mi_app
