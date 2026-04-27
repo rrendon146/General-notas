@@ -49,7 +49,7 @@ publish_to: 'none'
 version: 1.0.0+1
 
 environment:
-  sdk: ^3.10.7
+  sdk: ^3.9.2
 
 dependencies:
   flutter:
