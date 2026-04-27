@@ -23,7 +23,7 @@ fvm flutter --version  # Flutter 3.35.3
 
 PASO 1: Crear Estructura Base
 # Crear carpeta principal
-mkdir -p ~/Documentos/proyectos && cd ~/Documentos/proyectos
+cd 2026
 mkdir nuevo_proyecto
 cd nuevo_proyecto
 
