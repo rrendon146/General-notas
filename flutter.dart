@@ -310,6 +310,9 @@ cd ../../nuevo_proyecto/mi_app
 # Ejecutar setup
 make setup
 
+# en caso de error de falta un separaro alto ejecutar este comando
+sed -i 's/^    /\t/g' Makefile
+
 # Esto ejecuta:
 # 1. fvm install
 # 2. fvm use 3.35.3
