@@ -131,84 +131,84 @@ endif
 # -----------------------
 
 get:
-    $(FLUTTER) pub get
+	$(FLUTTER) pub get
 
 clean:
-    @echo "Limpiando proyecto..."
-    $(FLUTTER) clean
-    @find . -name "hs_err_pid*.log" -delete 2>/dev/null || true
-    @find . -name "replay_pid*.log" -delete 2>/dev/null || true
-    @echo "[OK] Proyecto limpio!"
+	@echo "Limpiando proyecto..."
+	$(FLUTTER) clean
+	@find . -name "hs_err_pid*.log" -delete 2>/dev/null || true
+	@find . -name "replay_pid*.log" -delete 2>/dev/null || true
+	@echo "[OK] Proyecto limpio!"
 
 setup:
-    @echo "Instalando Flutter..."
-    fvm install
-    @echo ""
-    @echo "Configurando Flutter SDK..."
-    fvm use 3.35.3 --force
-    @echo ""
-    @echo "Instalando dependencias..."
-    $(FLUTTER) pub get
-    @echo ""
-    @$(MAKE) gen
-    @echo ""
-    @echo "[OK] Setup completo! Ejecuta: make run"
+	@echo "Instalando Flutter..."
+	fvm install
+	@echo ""
+	@echo "Configurando Flutter SDK..."
+	fvm use 3.35.3 --force
+	@echo ""
+	@echo "Instalando dependencias..."
+	$(FLUTTER) pub get
+	@echo ""
+	@$(MAKE) gen
+	@echo ""
+	@echo "[OK] Setup completo! Ejecuta: make run"
 
 rebuild: clean get gen
 
 gen:
-    @echo "Generando codigo..."
-    $(DART) run build_runner build --delete-conflicting-outputs
-    @echo "[OK] Codigo generado!"
+	@echo "Generando codigo..."
+	$(DART) run build_runner build --delete-conflicting-outputs
+	@echo "[OK] Codigo generado!"
 
 watch:
-    $(DART) run build_runner watch --delete-conflicting-outputs
+	$(DART) run build_runner watch --delete-conflicting-outputs
 
 # -----------------------
 # EJECUCION
 # -----------------------
 
 run:
-    @echo "Ejecutando app..."
-    $(FLUTTER) run
+	@echo "Ejecutando app..."
+	$(FLUTTER) run
 
 run-device:
-    @echo "Listando dispositivos..."
-    $(FLUTTER) devices
-    @echo ""
-    @echo "Ejecuta: $(FLUTTER) run -d <device_id>"
+	@echo "Listando dispositivos..."
+	$(FLUTTER) devices
+	@echo ""
+	@echo "Ejecuta: $(FLUTTER) run -d <device_id>"
 
 # -----------------------
 # BUILD
 # -----------------------
 
 apk-dev:
-    @echo "Compilando APK Dev..."
-    $(FLUTTER) build apk --debug
-    @echo "[OK] APK: build/app/outputs/flutter-apk/app-debug.apk"
+	@echo "Compilando APK Dev..."
+	$(FLUTTER) build apk --debug
+	@echo "[OK] APK: build/app/outputs/flutter-apk/app-debug.apk"
 
 apk-prod:
-    @echo "Compilando APK Release..."
-    $(FLUTTER) build apk --release
-    @echo "[OK] APK: build/app/outputs/flutter-apk/app-release.apk"
+	@echo "Compilando APK Release..."
+	$(FLUTTER) build apk --release
+	@echo "[OK] APK: build/app/outputs/flutter-apk/app-release.apk"
 
 aab-prod:
-    @echo "Compilando AAB para Play Store..."
-    $(FLUTTER) build appbundle --release
-    @echo "[OK] AAB: build/app/outputs/bundle/release/app-release.aab"
+	@echo "Compilando AAB para Play Store..."
+	$(FLUTTER) build appbundle --release
+	@echo "[OK] AAB: build/app/outputs/bundle/release/app-release.aab"
 
 # -----------------------
 # UTILIDADES
 # -----------------------
 
 format:
-    $(DART) format lib/ -l 80
+	$(DART) format lib/ -l 80
 
 doctor:
-    $(FLUTTER) doctor -v
+	$(FLUTTER) doctor -v
 
 .PHONY: get clean setup rebuild gen watch run run-device apk-dev apk-prod aab-prod format doctor
-EOF
+
 
 
 
