@@ -341,3 +341,9 @@ make rebuild            # 🔄 clean + get + gen
 make watch              # 👁️ Regenerar código automático
 make format             # 📝 Formatear código
 make doctor             # 🏥 Verificar setup Flutter
+
+
+PASO 14: Copiar y pegar carpeta "Assets" se aloja imagenes
+Assets
+
+PASO 15: 
