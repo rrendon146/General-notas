@@ -11,40 +11,38 @@
 
 2026/├── packages/│   └── package_login/          ← YA EXISTE (reutilizable)│       ├── lib/│       ├── pubspec.yaml│       └── .fvmrc│├── ssays_limpieza/             ← Proyecto 1 (usa package_login)└── ssays_rpt_bitacora/         ← NUEVO PROYECTO (usa package_login)
 
-Paso 1: Crear Estructura Base del Proyecto
+# Verificar FVM instalado
+which fvm          # /snap/bin/fvm
 
-cd /home/rrendon/Documentos/repositorios/flutter/2026
+# Verificar Make instalado  
+which make         # /usr/bin/make
 
-# Crear carpeta del proyecto
-mkdir -p ssays_rpt_bitacora
-cd ssays_rpt_bitacora
+# Verificar Flutter
+fvm flutter --version  # Flutter 3.35.3
 
-# Crear estructura Flutter básica
-fvm flutter create . --platforms android,ios,web,linux,windows --project-name ssays_rpt_bitacora
 
-cd ..
+PASO 1: Crear Estructura Base
+# Crear carpeta principal
+mkdir -p ~/Documentos/proyectos && cd ~/Documentos/proyectos
+mkdir nuevo_proyecto
+cd nuevo_proyecto
 
-#esto crea:
-ssays_rpt_bitacora/
-├── lib/
-│   └── main.dart
-├── android/
-├── ios/
-├── web/
-├── linux/
-├── windows/
-├── test/
-├── pubspec.yaml
-├── pubspec.lock
-├── analysis_options.yaml
-└── README.md
+# Crear app Flutter
+fvm flutter create mi_app --platforms android,ios,web,linux,windows --project-name mi_app
+cd mi_app
 
-Paso 2: Configurar pubspec.yaml
-Ya tienes el contenido. Reemplaza ssays_rpt_bitacora/pubspec.yaml completamente:
 
-cat > ssays_rpt_bitacora/pubspec.yaml << 'EOF'
-name: ssays_rpt_bitacora
-description: "ssays_rpt_bitacora usando package_login."
+PASO 2: Crear .fvmrc
+cat > .fvmrc << 'EOF'
+{
+  "flutter": "3.35.3"
+}
+EOF
+
+PASO 3: Reemplazar pubspec.yaml
+cat > pubspec.yaml << 'EOF'
+name: mi_app
+description: "Nueva aplicación Flutter con package_login."
 publish_to: 'none'
 version: 1.0.0+1
 
@@ -62,7 +60,7 @@ dependencies:
   package_login:
     path: ../packages/package_login
 
-  # Dependencias comunes
+  # Dependencias principales
   auto_route: ^10.1.2
   awesome_dio_interceptor: ^1.3.0
   dio: ^5.9.0
@@ -83,195 +81,155 @@ dev_dependencies:
   freezed: ^3.1.0
   envied_generator: ^1.2.1
   flutter_launcher_icons: ^0.14.4
-  
   flutter_test:
     sdk: flutter
-
   flutter_lints: ^3.0.0
 
 flutter:
   uses-material-design: true
   generate: true
 EOF
-    
 
-Paso 3: Crear .fvmrc
-
-cat > ssays_rpt_bitacora/.fvmrc << 'EOF'
-{
-  "flutter": "3.35.3",
-  "fvmUpToDate": true
-}
+PASO 4: Crear .env
+cat > .env << 'EOF'
+BASE_URL_DEV=http://192.168.15.79:4000/api
+BASE_URL_PROD=https://ssays-api.com/api
 EOF
 
 
-
-Paso 4: Crear Makefile
-Copiar del patrón de ssays_limpieza pero adaptado:
-
-
-cat > ssays_rpt_bitacora/Makefile << 'EOF'
-# -----------------------
-# VARIABLES
-# -----------------------
+PASO 5: Crear Makefile ⚠️ USA TABS, NO ESPACIOS
+cat > Makefile << 'EOF'
+# Makefile - Flutter Development Automation
 VERSION_NAME=1.0.0
-APP_NAME=ssays_rpt_bitacora
+APP_NAME=mi_app
 FLUTTER=fvm flutter
 DART=fvm dart
 
-# Detectar Sistema Operativo
-ifeq ($(OS),Windows_NT)
-    DETECTED_OS=Windows
-else
-    DETECTED_OS=$(shell uname -s)
-endif
-
-# -----------------------
-# FLUTTER TASKS
-# -----------------------
-
+# ----- SETUP & MAINTENANCE -----
 get:
-	$(FLUTTER) pub get
+    $(FLUTTER) pub get
 
 clean:
-	@echo "Limpiando proyecto..."
-	$(FLUTTER) clean
-	@find . -name "hs_err_pid*.log" -delete 2>/dev/null || true
-	@find . -name "replay_pid*.log" -delete 2>/dev/null || true
-	@echo "[OK] Proyecto limpio!"
+    @echo "Limpiando proyecto..."
+    $(FLUTTER) clean
 
 setup:
-	@echo "Instalando Flutter..."
-	fvm install
-	@echo ""
-	@echo "Configurando Flutter SDK..."
-	fvm use 3.35.3 --force
-	@echo ""
-	@echo "Instalando dependencias..."
-	$(FLUTTER) pub get
-	@echo ""
-	@$(MAKE) gen
-	@echo ""
-	@echo "[OK] Setup completo! Ejecuta: make run"
+    @echo "Instalando Flutter..."
+    fvm install
+    @echo "Configurando Flutter..."
+    fvm use 3.35.3 --force
+    @echo "Instalando dependencias..."
+    $(FLUTTER) pub get
+    @$(MAKE) gen
+    @echo "[OK] Setup completo!"
 
 rebuild: clean get gen
 
 gen:
-	@echo "Generando codigo..."
-	$(DART) run build_runner build --delete-conflicting-outputs
-	@echo "[OK] Codigo generado!"
+    @echo "Generando codigo..."
+    $(DART) run build_runner build --delete-conflicting-outputs
+    @echo "[OK] Codigo generado!"
 
 watch:
-	$(DART) run build_runner watch --delete-conflicting-outputs
+    $(DART) run build_runner watch --delete-conflicting-outputs
 
-# -----------------------
-# EJECUCION
-# -----------------------
+# ----- EJECUCION -----
+run-dev:
+    $(FLUTTER) run -t lib/main_dev.dart
 
-run:
-	@echo "Ejecutando app..."
-	$(FLUTTER) run
+run-prod:
+    $(FLUTTER) run -t lib/main_prod.dart
 
-run-device:
-	@echo "Listando dispositivos..."
-	$(FLUTTER) devices
-	@echo ""
-	@echo "Ejecuta: $(FLUTTER) run -d <device_id>"
+run-android:
+    $(FLUTTER) run -d NBA54PEABC004209 -t lib/main_dev.dart
 
-# -----------------------
-# BUILD
-# -----------------------
+run-android-prod:
+    $(FLUTTER) run -d NBA54PEABC004209 -t lib/main_prod.dart
 
+run-linux:
+    $(FLUTTER) run -d linux -t lib/main_dev.dart
+
+# ----- BUILD -----
 apk-dev:
-	@echo "Compilando APK Dev..."
-	$(FLUTTER) build apk --debug
-	@echo "[OK] APK: build/app/outputs/flutter-apk/app-debug.apk"
+    $(FLUTTER) build apk --debug
 
 apk-prod:
-	@echo "Compilando APK Release..."
-	$(FLUTTER) build apk --release
-	@echo "[OK] APK: build/app/outputs/flutter-apk/app-release.apk"
+    $(FLUTTER) build apk --release
 
 aab-prod:
-	@echo "Compilando AAB para Play Store..."
-	$(FLUTTER) build appbundle --release
-	@echo "[OK] AAB: build/app/outputs/bundle/release/app-release.aab"
+    $(FLUTTER) build appbundle --release
 
-# -----------------------
-# UTILIDADES
-# -----------------------
-
+# ----- UTILIDADES -----
 format:
-	$(DART) format lib/ -l 80
+    $(DART) format lib/ -l 80
 
 doctor:
-	$(FLUTTER) doctor -v
+    $(FLUTTER) doctor -v
 
-.PHONY: get clean setup rebuild gen watch run run-device apk-dev apk-prod aab-prod format doctor
+.PHONY: get clean setup rebuild gen watch run-dev run-prod run-android run-android-prod run-linux apk-dev apk-prod aab-prod format doctor
+EOF
 
-
-
-
-Paso 5: Setup Completo
-cd ssays_rpt_bitacora
-
-# Ejecutar setup (esto toma 2-5 minutos la primera vez)
-make setup
-
-
-Esto hace automáticamente:
-
-✅ fvm install → Descarga Flutter 3.35.3 (si no lo has instalado)
-✅ fvm use 3.35.3 --force → Activa esa versión
-✅ flutter pub get → Descarga dependencias, incluyendo package_login desde ../packages/package_login
-✅ make gen → Genera código (freezed, auto_route, etc)
-Instalando Flutter...
-Configurando Flutter SDK...
-Instalando dependencias...
-Generando codigo...
-[OK] Codigo generado!
-[OK] Setup completo! Ejecuta: make run
-
-
-
-Paso 6: Crear Estructura Interna (copy de ssays_limpieza)
-
-cd ssays_rpt_bitacora/lib
-
-# Crear estructura base
-mkdir -p core/configs core/services
-mkdir -p presentation
-mkdir -p components
-mkdir -p src
-
-# Crear archivos base
-cat > app.dart << 'EOF'
+PASO 6: Crear lib/main.dart
+cat > lib/main.dart << 'EOF'
+import 'dart:async';
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:package_login/package_login.dart';
+import 'app.dart';
+import 'flavors.dart';
 
-class App extends ConsumerWidget {
-  const App({super.key});
-
+class MyHttpOverrides extends HttpOverrides {
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    return MaterialApp(
-      title: 'SSAYS RPT Bitácora',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
-        useMaterial3: true,
-      ),
-      home: const Scaffold(
-        body: Center(
-          child: Text('¡Bienvenido a ssays_rpt_bitacora!'),
-        ),
-      ),
-    );
+  HttpClient createHttpClient(SecurityContext? context) {
+    return super.createHttpClient(context)
+      ..badCertificateCallback = (cert, host, port) {
+        return host == 'nestjs-mysql.ssays-orquesta.com' ||
+            host == '192.168.15.79';
+      };
   }
+}
+
+Future<void> main() async {
+  await runZonedGuarded(
+    () async {
+      WidgetsFlutterBinding.ensureInitialized();
+      HttpOverrides.global = MyHttpOverrides();
+      F.initialize();
+      runApp(const ProviderScope(child: App()));
+    },
+    (error, stackTrace) {
+      debugPrint('Error: $error\nStackTrace: $stackTrace');
+    },
+  );
 }
 EOF
 
-cat > flavors.dart << 'EOF'
+PASO 7: Crear lib/main_dev.dart
+cat > lib/main_dev.dart << 'EOF'
+import 'flavors.dart';
+import 'main.dart' as runner;
+
+Future<void> main() async {
+  F.appFlavor = Flavor.dev;
+  await runner.main();
+}
+EOF
+
+
+PASO 8: Crear lib/main_prod.dart
+cat > lib/main_prod.dart << 'EOF'
+import 'flavors.dart';
+import 'main.dart' as runner;
+
+Future<void> main() async {
+  F.appFlavor = Flavor.prod;
+  await runner.main();
+}
+EOF
+
+PASO 9: Crear lib/flavors.dart
+cat > lib/flavors.dart << 'EOF'
 enum Flavor { dev, prod }
 
 class F {
@@ -282,9 +240,9 @@ class F {
   static String get title {
     switch (appFlavor) {
       case Flavor.dev:
-        return 'SSAYS RPT Bitácora Dev';
+        return 'Mi App Dev';
       case Flavor.prod:
-        return 'SSAYS RPT Bitácora';
+        return 'Mi App';
       default:
         return 'title';
     }
@@ -301,145 +259,85 @@ class F {
 }
 EOF
 
-
-
-Paso 7: Actualizar main.dart
-
-cat > ssays_rpt_bitacora/lib/main.dart << 'EOF'
+PASO 10: Crear lib/app.dart
+cat > lib/app.dart << 'EOF'
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:package_login/package_login.dart';
-import 'app.dart';
 import 'flavors.dart';
 
-void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  
-  F.initialize();
-  
-  runApp(
-    const ProviderScope(
-      child: App(),
-    ),
-  );
+class App extends ConsumerWidget {
+  const App({super.key});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    return MaterialApp(
+      title: F.title,
+      theme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
+        useMaterial3: true,
+      ),
+      home: Scaffold(
+        appBar: AppBar(title: Text(F.title)),
+        body: const Center(
+          child: Text('¡Bienvenido a mi_app!'),
+        ),
+      ),
+    );
+  }
 }
 EOF
 
 
+PASO 11: ⚠️ CRÍTICO - Generar código en package_login PRIMERO
+# Navegar a package_login
+cd ../packages/package_login
 
-Paso 8: Primer Test
-cd /home/rrendon/Documentos/repositorios/flutter/2026/ssays_rpt_bitacora
+# Asegurar que tiene .env
+cat > .env << 'EOF'
+BASE_URL_DEV=http://192.168.15.79:4000/api
+BASE_URL_PROD=https://ssays-api.com/api
+EOF
 
-# Ver dispositivos disponibles
-make doctor
+# Limpiar y regenerar
+fvm flutter clean
+fvm flutter pub get
+fvm dart run build_runner build --delete-conflicting-outputs
 
-# Ejecutar la app
-make run
+# Esto debe mostrar: "wrote 34 outputs" (o similar)
+# ESPERAR A QUE TERMINE
 
+PASO 12: Setup en mi_app
+# Volver a mi_app
+cd ../../nuevo_proyecto/mi_app
 
-Alternativas:
-# Solo listar dispositivos
-fvm flutter devices
-
-# Ejecutar con dispositivo específico
-fvm flutter run -d linux     # Si tienes Linux
-fvm flutter run -d chrome    # Web
-fvm flutter run -d emulator-5554  # Android emulator
-
-
-
-📊 Relación: ssays_rpt_bitacora ↔ package_login
-ssays_rpt_bitacora/
-│
-├── pubspec.yaml
-│   └─→ package_login: path: ../packages/package_login
-│       │
-│       └─→ Importa: import 'package:package_login/package_login.dart'
-│
-├── lib/
-│   ├── main.dart          ← Importa package_login
-│   ├── app.dart           ← Usa SessionManager() de package_login
-│   ├── flavors.dart
-│   ├── core/
-│   ├── presentation/
-│   ├── components/
-│   └── src/
-│
-├── Makefile               ← Automatiza todo
-└── .fvmrc                 ← Flutter 3.35.3
-
-packages/package_login/          ← COMPARTIDO
-├── lib/
-│   ├── package_login.dart       ← Barrel export
-│   ├── core/
-│   │   ├── configs/router/      ← Routes reutilizables
-│   │   ├── configs/network/     ← API config
-│   │   └── services/
-│   ├── components/              ← Widgets reusables
-│   ├── presentation/            ← Pantallas (Login, Register)
-│   └── src/                     ← Dominio (User, Auth, etc)
-├── pubspec.yaml
-└── .fvmrc
-
-
-✅ Comandos Frecuentes en Zorin OS
-# 1️⃣ Setup inicial (una sola vez)
-cd ssays_rpt_bitacora
+# Ejecutar setup
 make setup
 
-# 2️⃣ Descargar cambios de package_login
-make get
+# Esto ejecuta:
+# 1. fvm install
+# 2. fvm use 3.35.3
+# 3. flutter pub get
+# 4. generar código
 
-# 3️⃣ Regenerar código si cambias package_login
-make gen
+PASO 13: Lanzar en Celular
 
-# 4️⃣ Desarrollo con auto-regeneración
-make watch
-# En otra terminal:
-make run
+# Ejecutar en Android (Dev)
+make run-android
 
-# 5️⃣ Formatear código
-make format
+# O en Prod:
+make run-android-prod
 
-# 6️⃣ Limpiar y reconstruir
-make rebuild
-
-# 7️⃣ Build para Android
-make apk-dev    # Debug
-make apk-prod   # Release
-make aab-prod   # Play Store
-
-# 8️⃣ Verificar instalación
-make doctor
+# Si necesitas otro dispositivo:
+make run-device  # Lista dispositivos
 
 
-🔄 Flujo de Desarrollo (Editar package_login)
-# Terminal 1: En ssays_rpt_bitacora, mira cambios en tiempo real
-cd ssays_rpt_bitacora
-make watch
-
-# Terminal 2: En ssays_limpieza, hace edits en package_login (compartido)
-cd ../packages/package_login
-# ... editas código ...
-
-# Terminal 1 automáticamente regenera
-# Terminal 3: En ssays_rpt_bitacora, ejecuta
-cd ssays_rpt_bitacora
-make run
-
-# Los cambios en package_login se ven inmediatamente
-
-🆘 Troubleshooting en Zorin OS
-Error: "pubspec.yaml could not find package package_login"
-# Asegúrate que la ruta es correcta
-ls -la ../packages/package_login/pubspec.yaml
-
-# Luego:
-cd ssays_rpt_bitacora
-rm -rf pubspec.lock
-make get
-
-
-
-
-
+📚 Comandos Útiles Resumen
+make setup              # ⚙️ Setup inicial (solo primera vez)
+make run-dev            # 💻 Ejecutar en desktop (Dev)
+make run-prod           # 💻 Ejecutar en desktop (Prod)
+make run-android        # 📱 Ejecutar en celular (Dev)
+make run-android-prod   # 📱 Ejecutar en celular (Prod)
+make rebuild            # 🔄 clean + get + gen
+make watch              # 👁️ Regenerar código automático
+make format             # 📝 Formatear código
+make doctor             # 🏥 Verificar setup Flutter
