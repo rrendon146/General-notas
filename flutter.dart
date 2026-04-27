@@ -38,7 +38,7 @@ EOF
 
 PASO 3: Reemplazar pubspec.yaml
 cat > pubspec.yaml << 'EOF'
-name: mi_app
+name: ssays_bitacora
 description: "Nueva aplicación Flutter con package_login."
 publish_to: 'none'
 version: 1.0.0+1
@@ -98,7 +98,7 @@ PASO 5: Crear Makefile ⚠️ USA TABS, NO ESPACIOS
 cat > Makefile << 'EOF'
 # Makefile - Flutter Development Automation
 VERSION_NAME=1.0.0
-APP_NAME=mi_app
+APP_NAME=ssays_bitacora
 FLUTTER=fvm flutter
 DART=fvm dart
 
@@ -295,7 +295,7 @@ BASE_URL_DEV=http://192.168.15.79:4000/api
 BASE_URL_PROD=https://ssays-api.com/api
 EOF
 
-# Limpiar y regenerar
+# Limpiar y regenerar se ejecuta dentro de la carpeta package/package_login
 fvm flutter clean
 fvm flutter pub get
 fvm dart run build_runner build --delete-conflicting-outputs
