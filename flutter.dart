@@ -347,3 +347,32 @@ PASO 14: Copiar y pegar carpeta "Assets" se aloja imagenes
 Assets
 
 PASO 15: 
+cd nuevo_proyecto
+mkdir components
+mkdir core
+mkdir presentation
+mkdir src
+
+PASO 16:
+Crear el login de la app en carpeta raiz 2026
+  
+2026/
+├── packages/
+│   └── package_login/          ← PACKAGE COMPARTIDO (ya existe)
+│       └── lib/
+│           ├── presentation/login/screens/
+│           │   └── login_screen.dart     ✅ YA EXISTE
+│           └── presentation/splash/screens/
+│               └── splash_screen.dart    ✅ YA EXISTE
+│
+└── ssays_bitacora/            ← TU PROYECTO
+    └── lib/
+        ├── presentation/screens/
+        │   └── home_screen.dart          ❌ TÚ LO CREAS
+        ├── core/configs/router/
+        │   ├── app_router.dart           ❌ TÚ LO CREAS
+        │   ├── router_provider.dart      ❌ TÚ LO CREAS
+        │   └── router.dart               ❌ TÚ LO CREAS
+        ├── app.dart                      ✏️ TÚ LO MODIFICAS
+        └── main.dart                     (ya existe)
+
